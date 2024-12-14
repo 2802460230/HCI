@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade 2: Measurement</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none; /* Hide all pages initially */
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .quiz-container {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .quiz-question {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .quiz-options {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .quiz-options button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .quiz-options button:hover {
+      background-color: #ddd;
+    }
+
+    .quiz-options button.correct {
+      background-color: #d4edda;
+    }
+
+    .quiz-options button.incorrect {
+      background-color: #f8d7da;
+    }
+
+    img {
+      display: block;
+      margin: 10px auto;
+      border-radius: 10px;
+      width: 150px;
+    }
+
+    .drag-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tool {
+      margin: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f0f0f0;
+      width: 150px;
+      text-align: center;
+      cursor: grab;
+    }
+
+    .measurement-container {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .measurement {
+      margin: 0 10px;
+      padding: 10px;
+      border: 2px dashed #ccc;
+      border-radius: 5px;
+      width: 100px;
+      text-align: center;
+      background-color: #f9f9f9;
+    }
+
+    .drop-area {
+      border: 2px dashed #6a5acd;
+      padding: 10px;
+      border-radius: 5px;
+      width: 150px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="#" class="close-button">X</a>
+    <h1 class="header-title">Estimate and Measure in Standard Units</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <div class="content" id="page0" style="display: block;">
+    <div class="note">Estimate</div>
+    <div class="analogy">
+        When you estimate, you make a good guess about how long, heavy, or full something is.
+        <br>
+        <strong>Example:</strong> This pencil is about 10 centimeters long.
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note">Measure</div>
+    <div class="analogy">
+        When you measure, you use a tool to find out exactly how long, heavy, or full something is.
+        <br>
+        <strong>Example:</strong> Use a ruler to measure the pencil and check if it’s really 10 centimeters.
+    </div>
+  </div>
+
+  <div class="content" id="page2">
+    <div class="note">Standard units and how to measure them:</div>
+    <div class="analogy">
+        <strong>Centimeters (cm) and meters (m) - length</strong>
+        <br>
+        Centimeters and meters are used to measure how long or tall something is.
+      <ul>
+        <li><strong>Tool to measure it:</strong> ruler and measuring tape</li>
+        <li><strong>Example:</strong> Your book is 20 cm long, and the classroom is about 5 meters long.</li>
+      </ul>
+      <button id="start1Button" class="button">Start</button>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <div class="content" id="page3">
+    <div class="note">Standard units and how to measure them:</div>
+    <div class="analogy">
+        <strong>Kilograms (kg) and grams (g) - weight</strong>
+        <br>
+        Kilograms and grams are used to measure how heavy something is.
+      <ul>
+        <li><strong>Tool to measure it:</strong> weighing scale</li>
+        <li><strong>Example:</strong> A bag of sugar weighs 1 kilogram, and a chocolate bar weighs 100 grams.</li>
+      </ul>
+      <button id="start2Button" class="button">Start</button>
+      <div id="quizContainer2" class="quiz-container">
+        <div class="quiz-question">Which tool is used to measure the weight of this object?</div>
+        <img src="apple.png" alt="Apple">
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="true">Grams</button>
+          <button class="quiz-option" data-correct="false">Kilograms</button>
+        </div>
+        <img src="suitcase.png" alt="Suitcase">
+        <div class="quiz-options">
+          <button class="quiz-option" data-correct="false">Grams</button>
+          <button class="quiz-option" data-correct="true">Kilograms</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content" id="page4">
+    <div class="note">Standard units and how to measure them:</div>
+    <div class="analogy">
+        <strong>Liters (l) - capacity</strong>
+        <br>
+        Liters are used to measure how much liquid is in a container.
+      <ul>
+        <li><strong>Tool to measure it:</strong> measuring cup</li>
+        <li><strong>Example:</strong> A bottle of water is 1 liter</li>
+      </ul>
+      <button id="start3Button" class="button">Start</button>
+      <div id="container3" class="container"></div>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    const start1Button = document.getElementById('start1Button');
+    const container1 = document.getElementById('container1');
+
+    start1Button.addEventListener('click', () => {
+      container1.innerHTML = `
+        <div class="drag-container">
+          <p>Drag the measuring tools to the correct measurements:</p>
+          <div class="measurement-container">
+            <div class="measurement" data-value="20cm">20 cm</div>
+            <div class="measurement" data-value="5m">5 m</div>
+          </div>
+          <div class="tool" draggable="true" data-value="ruler">Ruler</div>
+          <div class="tool" draggable="true" data-value="measuring tape">Measuring Tape</div>
+          <div class="tool" draggable="true" data-value="scale">Scale</div>
+        </div>
+      `;
+
+      // Drag and Drop Functionality
+      const tools = document.querySelectorAll('.tool');
+      const measurements = document.querySelectorAll('.measurement');
+
+      tools.forEach(tool => {
+        tool.addEventListener('dragstart', dragStart);
+      });
+
+      measurements.forEach(measurement => {
+        measurement.addEventListener('dragover', dragOver);
+        measurement.addEventListener('drop', drop);
+      });
+    });
+
+    function dragStart(e) {
+      e.dataTransfer.setData('text/plain', e.target.dataset.value);
+    }
+
+    function dragOver(e) {
+      e.preventDefault();
+    }
+
+    function drop(e) {
+      e.preventDefault();
+      const toolValue = e.dataTransfer.getData('text/plain');
+      const measurementValue = e.target.dataset.value;
+
+      if (toolValue === 'ruler' && measurementValue === '20cm') {
+        alert('Correct! A ruler can measure 20 cm.');
+      } else if (toolValue === 'measuring tape' && measurementValue === '5m') {
+        alert('Correct! A measuring tape can measure 5 m.');
+      } else {
+        alert('Try again!');
+      }
+    }
+
+    const start2Button = document.getElementById('start2Button');
+    const quizContainer2 = document.getElementById('quizContainer2');
+    start2Button.addEventListener('click', () => {
+      quizContainer2.style.display = 'block';
+    });
+
+    const quizOptions = document.querySelectorAll('.quiz-option');
+    quizOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        if (option.getAttribute('data-correct') === 'true') {
+          option.classList.add('correct');
+        } else {
+          option.classList.add('incorrect');
+        }
+      });
+    });
+
+    const start3Button = document.getElementById('start3Button');
+    const container3 = document.getElementById('container3');
+
+    start3Button.addEventListener('click', () => {
+      container3.innerHTML = `
+        <div class="drag-container">
+          <p>Match the correct tool to the measurement:</p>
+          <div class="measurement-container">
+            <div class="drop-area" data-value="1l">1 L</div>
+            <div class="drop-area" data-value="500ml">500 ml</div>
+            <div class="drop-area" data-value="2l">2 L</div>
+          </div>
+          <div class="tool" draggable="true" data-value="measuring_cup">Measuring Cup</div>
+          <div class="tool" draggable="true" data-value="bottle">Bottle</div>
+          <div class="tool" draggable="true" data-value="water_jug">Water Jug</div>
+        </div>
+      `;
+
+      // Drag and Drop Functionality
+      const tools = document.querySelectorAll('.tool');
+      const dropAreas = document.querySelectorAll('.drop-area');
+
+      tools.forEach(tool => {
+        tool.addEventListener('dragstart', dragStart);
+      });
+
+      dropAreas.forEach(dropArea => {
+        dropArea.addEventListener('dragover', dragOver);
+        dropArea.addEventListener('drop', drop);
+      });
+    });
+
+    function drop(e) {
+      e.preventDefault();
+      const toolValue = e.dataTransfer.getData('text/plain');
+      const measurementValue = e.target.dataset.value;
+
+      if (toolValue === 'measuring_cup' && measurementValue === '500ml') {
+        alert('Correct! A measuring cup can hold 500 ml.');
+      } else if (toolValue === 'bottle' && measurementValue === '1l') {
+        alert('Correct! A bottle can hold 1 L.');
+      } else if (toolValue === 'water_jug' && measurementValue === '2l') {
+        alert('Correct! A water jug can hold 2 L.');
+      } else {
+        alert('Try again!');
+      }
+    }
+  </script>
+</body>
+</html>
