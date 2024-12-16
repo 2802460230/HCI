@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counting Lesson</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note, .analogy {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .box {
+      width: 60px;
+      height: 60px;
+      margin: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #6a5acd;
+      font-size: 24px;
+      background-color: #fff;
+      color: #6a5acd;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .box.correct {
+      background-color: green;
+      color: white;
+    }
+
+    .box.incorrect {
+      background-color: red;
+      color: white;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="header-title">Counting Lesson</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- Page 0: Counting to 100 -->
+  <div class="content" id="page0">
+    <div class="note">
+      Numbers 1 to 100: Counting helps us understand how many things we have and know where numbers come in line.
+    </div>
+    <div class="analogy">
+      There are many ways to count to 100. One way is to count one by one starting from 1. This goes 1, 2, 3, 4, 5, and so on until you reach 100!  
+      Another way is to go by tens. This is when you start at 10 and keep adding 10 until you reach 100. This goes 10, 20, 30, 40, and so on until you reach 100.
+      <br> <br>
+      <button id="start1Button" class="button">Start</button>
+      <div id="container1" class="container"></div>
+    </div>
+  </div>
+
+  <!-- Page 1: Even Numbers -->
+  <div class="content" id="page1">
+    <div class="note">
+      Even Numbers: Even numbers are numbers that can be split into two equal groups without anything left over. You can make pairs with even numbers. An example of this is if you have 6 apples, you can pair them all up and make 3 pairs of apples.
+    </div>
+    <div class="analogy">
+      Even numbers are always divisible by 2.
+      <br> <br>
+      <button id="start2Button" class="button">Start</button>
+      <div id="container2" class="container"></div>
+      <p id="evenNumbersText"></p>
+    </div>
+  </div>
+
+  <!-- Page 2: Odd Numbers -->
+  <div class="content" id="page2">
+    <div class="note">
+      Odd Numbers: Odd numbers are numbers that cannot be evenly divided into two groups. If you try to pair them, you'll have one number left over.
+    </div>
+    <div class="analogy">
+      Odd numbers are always 1 more than a multiple of 2. For example, 1, 3, 5, 7, and so on.
+      <br> <br>
+      <button id="start3Button" class="button">Start</button>
+      <div id="container3" class="container"></div>
+      <p id="oddNumbersText"></p>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function startCounting(containerId, step, limit) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = '';
+      for (let i = step; i <= limit; i += step) {
+        const box = document.createElement('div');
+        box.className = 'box';
+        box.textContent = i;
+        container.appendChild(box);
+
+        // Event listener for clicking the box
+        if (containerId === 'container2') {
+          box.addEventListener('click', () => {
+            if (i % 2 === 0) {
+              box.classList.add('correct');
+            } else {
+              box.classList.add('incorrect');
+            }
+          });
+        } else if (containerId === 'container3') {
+          box.addEventListener('click', () => {
+            if (i % 2 !== 0) {
+              box.classList.add('correct');
+            } else {
+              box.classList.add('incorrect');
+            }
+          });
+        }
+      }
+    }
+
+    document.getElementById('start1Button').addEventListener('click', () => {
+      startCounting('container1', 10, 100);
+    });
+
+    document.getElementById('start2Button').addEventListener('click', () => {
+      startCounting('container2', 1, 10);
+      document.getElementById('evenNumbersText').textContent = 'Identify the even numbers by clicking on the boxes!';
+    });
+
+    document.getElementById('start3Button').addEventListener('click', () => {
+      startCounting('container3', 1, 10);
+      document.getElementById('oddNumbersText').textContent = 'Identify the odd numbers by clicking on the boxes!';
+    });
+
+    // Initialize the first page
+    pages[0].style.display = 'block';
+  </script>
+</body>
+</html>
