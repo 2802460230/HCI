@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Grade 2: Number Pairs and Doubles</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f8f8;
+    }
+
+    header {
+      background-color: #fff;
+      padding: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    .progress-bar {
+      width: 80%;
+      height: 5px;
+      background-color: #e0e0e0;
+      margin: 20px auto;
+      position: relative;
+      border-radius: 10px;
+    }
+
+    .progress-bar .fill {
+      height: 100%;
+      background-color: #6a5acd;
+      width: 0%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      border-radius: 10px;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .content {
+      padding: 30px;
+      max-width: 800px;
+      margin: 0 auto;
+      display: none;
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .note-box {
+      background-color: #f5f5f5;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      margin-top: 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .input-box {
+      width: 60px;
+      height: 60px;
+      margin: 10px;
+      font-size: 24px;
+      text-align: center;
+      border: 2px solid #6a5acd;
+      border-radius: 8px;
+    }
+
+    .input-box.correct {
+      background-color: lightgreen;
+    }
+
+    .input-box.incorrect {
+      background-color: lightcoral;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .nav-buttons button {
+      width: 120px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #6a5acd;
+      color: white;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+
+    .button {
+      background-color: #6a5acd;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .button:hover {
+      background-color: #5a4db8;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 class="header-title">Number Pairs and Doubles</h1>
+  </header>
+
+  <div class="progress-bar">
+    <div class="fill" id="progressFill"></div>
+  </div>
+
+  <!-- First Page -->
+  <div class="content" id="page0">
+    <div class="note-box">
+      <h2>Number Pairs (6-10)</h2>
+      <p>Number pairs are two numbers that work together to make another number. For example, 4 + 2 makes 6, so 4 and 2 are a pair for 6.</p>
+      <p>Let's find the number pairs for 6, 7, 8, 9, and 10!</p>
+    </div>
+  </div>
+
+  <div class="content" id="page1">
+    <div class="note-box">
+      <h2>Number Pairs for 6</h2>
+      <p>6:</p>
+      <ul>
+        <li>1 + 5 = 6</li>
+        <li>2 + 4 = 6</li>
+        <li>3 + 3 = 6</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Second Page -->
+  <div class="content" id="page2">
+    <div class="note-box">
+      <h2>Number Pairs for 7</h2>
+      <p>7:</p>
+      <ul>
+        <li>1 + 6 = 7</li>
+        <li>2 + 5 = 7</li>
+        <li>3 + 4 = 7</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Third Page -->
+  <div class="content" id="page3">
+    <div class="note-box">
+      <h2>Number Pairs for 8</h2>
+      <p>8:</p>
+      <ul>
+        <li>1 + 7 = 8</li>
+        <li>2 + 6 = 8</li>
+        <li>3 + 5 = 8</li>
+        <li>4 + 4 = 8</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Fourth Page -->
+  <div class="content" id="page4">
+    <div class="note-box">
+      <h2>Number Pairs for 9</h2>
+      <p>9:</p>
+      <ul>
+        <li>1 + 8 = 9</li>
+        <li>2 + 7 = 9</li>
+        <li>3 + 6 = 9</li>
+        <li>4 + 5 = 9</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Fifth Page -->
+  <div class="content" id="page5">
+    <div class="note-box">
+      <h2>Number Pairs for 10</h2>
+      <p>10:</p>
+      <ul>
+        <li>1 + 9 = 10</li>
+        <li>2 + 8 = 10</li>
+        <li>3 + 7 = 10</li>
+        <li>4 + 6 = 10</li>
+        <li>5 + 5 = 10</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Sixth Page -->
+  <div class="content" id="page6">
+    <div class="note-box">
+      <h2>Know Doubles to at Least Double 5</h2>
+      <p>Doubling means adding a number to itself. For example, double 2 means 2 + 2. Doubling is helpful for quick mental math. Once you know your doubles you can solve problems faster!</p>
+      <ul>
+        <li>Double of 1: 1 + 1 = 2</li>
+        <li>Double of 2: 2 + 2 = 4</li>
+        <li>Double of 3: 3 + 3 = 6</li>
+        <li>Double of 4: 4 + 4 = 8</li>
+        <li>Double of 5: 5 + 5 = 10</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <button class="button" onclick="prevPage()">Back</button>
+    <button class="button" onclick="nextPage()">Next</button>
+  </div>
+
+  <script>
+    const progressFill = document.getElementById('progressFill');
+    const pages = document.querySelectorAll('.content');
+    let currentPage = 0;
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        pages[currentPage].style.display = 'none';
+        currentPage++;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) * 100 + '%';
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        pages[currentPage].style.display = 'none';
+        currentPage--;
+        pages[currentPage].style.display = 'block';
+        progressFill.style.width = ((currentPage + 1) / pages.length) *  100 + '%';
+      }
+    }
+
+    // Initialize the first page
+    pages[0].style.display = 'block';
+  </script>
+</body>
+</html> 
